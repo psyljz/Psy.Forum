@@ -21,18 +21,11 @@ import java.util.Map;
 
 @Controller
 public class HomeController {
-
+    @Autowired
     private DiscussService discussService;
+    @Autowired
     private UserService userService;
 
-    @Autowired
-    public void setDiscussService(DiscussService discussService) {
-        this.discussService = discussService;
-    }
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String getIndexPage(Model model, Page page) {
@@ -53,7 +46,7 @@ public class HomeController {
             }
         }
         model.addAttribute("discussPosts", discussPosts);
-        model.addAttribute("page",page);
+        model.addAttribute("page", page);
         return "index";
     }
 }

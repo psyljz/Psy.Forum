@@ -7,8 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import psycholabs.Forum.dao.DiscussPostMapper;
+import psycholabs.Forum.dao.LoginTicketMapper;
 import psycholabs.Forum.dao.UserMapper;
 import psycholabs.Forum.entity.DiscussPost;
+import psycholabs.Forum.entity.LoginTicket;
 import psycholabs.Forum.entity.User;
 
 import java.util.Date;
@@ -23,6 +25,9 @@ public class MapperTest {
 
     @Autowired
     private DiscussPostMapper discussPostMapper;
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Test
     public void selectUserById() {
@@ -69,7 +74,42 @@ public class MapperTest {
 //        int row = discussPostMapper.selectDiscussPostRows(149);
 //        System.out.println(rows);
 
-
-
     }
+
+    @Test
+    public void testInsertLoginTicketMapper(){
+        LoginTicket loginTicket =new LoginTicket();
+        loginTicket.setTicket("1123");
+        loginTicket.setUser_id(122);
+        loginTicket.setExpired(new Date(System.currentTimeMillis()+1000*60*10));
+        loginTicket.setStatus(0);
+
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void updateInsertLoginTicketMapper(){
+
+        loginTicketMapper.updateLoginStatus(1,"1123");
+    }
+
+    @Test
+    public void selectLoginTicketMapper(){
+        LoginTicket loginTicket=loginTicketMapper.selectLoginTicket("15978ff557dc45ec87af091042966a74");
+        System.out.println(loginTicket);
+        System.out.println(loginTicket.getUser_id());
+    }
+    @Test
+    public void selectLoginUsrIdMapper(){
+        List<LoginTicket> loginTicket=loginTicketMapper.selectLoginUser_id(163);
+        loginTicket.forEach(System.out::println);
+    }
+
+    @Test
+    public void selectLoginUsrid(){
+        int user_id =loginTicketMapper.selectLoginTickByTicket("15978ff557dc45ec87af091042966a74");
+        System.out.println(user_id);
+    }
+
+
 }

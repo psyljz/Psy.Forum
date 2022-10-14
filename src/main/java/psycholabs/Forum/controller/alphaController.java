@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
@@ -55,6 +57,7 @@ public class alphaController {
     @ResponseBody
     public String getStudents(@RequestParam(name = "current",required = false,defaultValue = "1") int current,
                               @RequestParam(name = "limit",required = false,defaultValue = "1") int limit)
+
     {
         System.out.println(current);
         System.out.println(limit);
@@ -124,6 +127,57 @@ public class alphaController {
 
 
     }
+
+    //cookies相关测试
+    @RequestMapping(path = "/cookies/set", method = RequestMethod.GET)
+    @ResponseBody
+    public String setCookie(HttpServletResponse response){
+
+        //创建cookie对象
+        Cookie cookie = new Cookie("name","liujingze");
+        //设置cookie生效的范围 指定需要cookie的请求
+        cookie.setPath("/alpha");
+        //设置cookie的保存时间
+        cookie.setMaxAge(60*10);
+        response.addCookie(cookie);
+        return "set cookie";
+
+    }
+
+    @RequestMapping(path = "/cookies/get", method = RequestMethod.GET)
+    @ResponseBody
+    public String getCookie(@CookieValue("name") String name){
+
+        System.out.println(name);
+        //创建cookie对象
+
+        return "get cookie";
+
+    }
+
+
+    @RequestMapping(path = "/session/set", method = RequestMethod.GET)
+    @ResponseBody
+    public String setSession(HttpSession session){
+
+        session.setAttribute("id",111);
+        session.setAttribute("name","liu");
+
+        return "set session";
+
+    }
+
+    @RequestMapping(path = "/session/get", method = RequestMethod.GET)
+    @ResponseBody
+    public String getSession(HttpSession session){
+
+        System.out.println( session.getAttribute("id"));
+        System.out.println( session.getAttribute("name"));
+        return "sddd";
+    }
+
+
+
 
 
 
