@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import psycholabs.Forum.utli.ForumUtli;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -176,11 +177,14 @@ public class alphaController {
         return "sddd";
     }
 
-
-
-
-
-
+    // ajax示例
+    @RequestMapping(path = "/ajax", method = RequestMethod.POST)
+    @ResponseBody
+    public String testAjax(String name, int age) {
+        System.out.println(name);
+        System.out.println(age);
+        return ForumUtli.getJSONString(0, "操作成功!");
+    }
 
 
 

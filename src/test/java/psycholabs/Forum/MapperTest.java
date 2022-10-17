@@ -112,4 +112,17 @@ public class MapperTest {
     }
 
 
+    @Test
+    public void insertDisscussPost(){
+        DiscussPost post = new DiscussPost();
+        post.setTitle("相亲贴2");
+        post.setContent("我要找个大哥");
+        post.setType(0);
+        post.setUserId(163);
+        post.setCreateTime(new Date());
+
+        discussPostMapper.insertDiscussPost(post);
+    }
+
+
 }

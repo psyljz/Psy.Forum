@@ -37,6 +37,10 @@ public class TicketInterceptor implements HandlerInterceptor {
 
                 User user=userService.findUserById(userService.loginTicketUserId(ticket));
 
+                System.out.println("-----------");
+                System.out.println(user.getId());
+                System.out.println("-----------");
+
                 //在本次请求中持用用户
                 // 在多个线程中隔离
                 hostHolder.setUsers(user);

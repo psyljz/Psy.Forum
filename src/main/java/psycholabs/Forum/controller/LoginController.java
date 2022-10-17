@@ -108,7 +108,6 @@ public class LoginController implements PsycholabsConstant {
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String checkUser(String username , String password, String login_code,Boolean remember,HttpSession session,Model model,
                             HttpServletResponse response) {
-        System.out.println(remember);
         String kaptcha= (String) session.getAttribute("kaptcha");
         // 首先检查验证码
         if (!login_code.equalsIgnoreCase(kaptcha)){
@@ -116,8 +115,9 @@ public class LoginController implements PsycholabsConstant {
             return "/site/login";
 
         }
+
         Date expired = new Date(System.currentTimeMillis()+1000*60*60*100);
-        if (remember){
+        if (remember !=null){
             expired = new Date(System.currentTimeMillis()+1000*60*60*100);
 
         }
